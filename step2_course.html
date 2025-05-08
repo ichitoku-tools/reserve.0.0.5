@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>コース選択</title>
+</head>
+<body>
+  <h2>コースを選んでください</h2>
+  <button onclick="selectCourse('もみほぐし')">もみほぐし</button>
+  <button onclick="selectCourse('オイルマッサージ')">オイルマッサージ</button>
+
+  <script>
+    function selectCourse(course) {
+      localStorage.setItem("selectedCourse", course);
+      window.location.href = "step3_time.html";
+    }
+  </script>
+</body>
+</html>

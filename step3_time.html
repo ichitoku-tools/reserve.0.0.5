@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>時間選択</title>
+</head>
+<body>
+  <h2>時間を選んでください</h2>
+  <button onclick="selectTime('13:00')">13:00</button>
+  <button onclick="selectTime('15:00')">15:00</button>
+
+  <script>
+    function selectTime(time) {
+      localStorage.setItem("selectedTime", time);
+      // 仮の情報（本来は step1 等から取得）
+      localStorage.setItem("selectedName", "きだ");
+      localStorage.setItem("selectedPhone", "00000000000");
+      localStorage.setItem("selectedEmail", "test@example.com");
+      localStorage.setItem("selectedMemo", "よろしくお願いします");
+      localStorage.setItem("selectedStaff", "担当スタッフA");
+      window.location.href = "step4_customer_refactored.html";
+    }
+  </script>
+</body>
+</html>
