@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>予約完了</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: linear-gradient(to bottom, #fdfaf6, #f5eee5);
+      color: #333;
+      text-align: center;
+      padding: 48px 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    h2 {
+      font-size: 24px;
+      color: #6b4e3d;
+      margin-bottom: 24px;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #8b4513;
+    }
+    .button-top {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #c8a97e;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>ご予約ありがとうございました！</h2>
+    <p><span class="highlight" id="reservationIdBox">予約ID：</span></p>
+    <p>担当スタッフ：<span class="highlight" id="staffName"></span></p>
+    <p>コース：<span class="highlight" id="courseName"></span></p>
+    <p>日時：<span class="highlight" id="dateTime"></span></p>
+    <a class="button-top" href="index.html">トップに戻る</a>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const reservationId = urlParams.get('id');
+    document.getElementById("reservationIdBox").textContent += reservationId || "(不明)";
+
+    const staff = localStorage.getItem("selectedStaff") || "(未選択)";
+    const course = localStorage.getItem("selectedCourse") || "(未選択)";
+    const date = localStorage.getItem("selectedDate") || "";
+    const time = localStorage.getItem("selectedTime") || "";
+    const dateTime = date && time ? `${date} ${time}` : "(未選択)";
+
+    document.getElementById("staffName").textContent = staff;
+    document.getElementById("courseName").textContent = course;
+    document.getElementById("dateTime").textContent = dateTime;
+
+    localStorage.clear();
+  </script>
+</body>
+</html>

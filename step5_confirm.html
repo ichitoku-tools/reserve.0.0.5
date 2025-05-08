@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ご予約内容の確認</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <style>
+    body {
+    overflow-x: hidden;
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #fdfaf6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      width: 100%;
+      max-width: 380px;
+      margin: 40px auto;
+      padding: 24px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 32px;
+      gap: 4%;
+    }
+    .btn {
+      flex: 1;
+      padding: 12px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      color: white;
+      background-color: #c8a97e;
+    }
+    .btn:hover {
+      background-color: #b8956a;
+    }
+    .btn-back {
+      background-color: #ccc;
+      color: #333;
+    }
+    .btn-back:hover {
+      background-color: #bbb;
+    }
+      *, *::before, *::after {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>以下の内容で予約を確定します</h2>
+    <p><strong>お名前：</strong><span id="confirmName"></span></p>
+    <p><strong>電話番号：</strong><span id="confirmPhone"></span></p>
+    <p><strong>メールアドレス：</strong><span id="confirmEmail"></span></p>
+    <p><strong>スタッフ：</strong><span id="confirmStaff"></span></p>
+    <p><strong>コース：</strong><span id="confirmCourse"></span></p>
+    <p><strong>日時：</strong><span id="confirmDateTime"></span></p>
+    <p><strong>メモ：</strong><span id="confirmMemo"></span></p>
+
+    <div class="button-row">
+      <a class="btn-back btn" href="step4_customer.html">修正する</a>
+      <a class="btn" href="#" id="submitBtn">予約を確定</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("confirmName").textContent = localStorage.getItem("name") || "";
+    document.getElementById("confirmPhone").textContent = localStorage.getItem("phone") || "";
+    document.getElementById("confirmEmail").textContent = localStorage.getItem("email") || "";
+    document.getElementById("confirmStaff").textContent = localStorage.getItem("selectedStaff") || "";
+    document.getElementById("confirmCourse").textContent = localStorage.getItem("selectedCourse") || "";
+    document.getElementById("confirmDateTime").textContent = (localStorage.getItem("selectedDate") || "") + " " + (localStorage.getItem("selectedTime") || "");
+    document.getElementById("confirmMemo").textContent = localStorage.getItem("memo") || "";
+
+    document.getElementById("submitBtn").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const data = {
+        name: localStorage.getItem("name") || "",
+        phone: localStorage.getItem("phone") || "",
+        email: localStorage.getItem("email") || "",
+        memo: localStorage.getItem("memo") || "",
+        staff: localStorage.getItem("selectedStaff") || "",
+        course: localStorage.getItem("selectedCourse") || "",
+        date: localStorage.getItem("selectedDate") || "",
+        time: localStorage.getItem("selectedTime") || ""
+      };
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwvOfGufGD2DjmuYGe0NutU3Fw4d8ts9-wqNhHpw52pRh8PnAfydr1z_SQIL-xjgGSf2w/exec", {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" }
+        });
+        if (res.ok) {
+          const result = await res.json();
+          const reservationId = result.id;
+          localStorage.clear();
+          window.location.href = `step6_thanks.html?id=${reservationId}`;
+        } else {
+          alert("送信に失敗しました。もう一度お試しください。");
+        }
+      } catch (err) {
+        alert("通信エラーが発生しました。");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

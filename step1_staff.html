@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>スタッフ選択（改良版）</title>
+  <link href="common.css" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: linear-gradient(to bottom, #fdfaf6, #f5eee5);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 32px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 1em;
+      color: #5e3c22;
+      text-align: center;
+    }
+    .staff-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5em;
+      justify-content: center;
+    }
+    .staff-card {
+      border: 2px solid #e6d6c2;
+      border-radius: 12px;
+      padding: 1.2em;
+      background: #fff;
+      width: 100%;
+      max-width: 280px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .staff-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .staff-card.selected {
+      border: 2px solid #c28b5c;
+      background-color: #fff3e5;
+    }
+    .staff-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #8b4513;
+      margin-bottom: 0.3em;
+    }
+    .staff-info {
+      font-size: 0.92em;
+      color: #666;
+      margin-bottom: 1em;
+    }
+    .select-btn {
+      padding: 0.5em 1em;
+      background-color: #c28b5c;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      font-size: 0.9em;
+      transition: background 0.2s;
+    }
+    .select-btn:hover {
+      background-color: #a57148;
+    }
+    input[type="radio"] {
+      display: none;
+    }
+    @media (max-width: 600px) {
+      .staff-list {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>担当スタッフをお選びください</h1>
+  <form>
+    <div class="staff-list">
+      <label class="staff-card" onclick="selectCard(this)">
+        <div class="staff-name">もみ太郎</div>
+        <div class="staff-info">もみほぐし・ヘッドが得意。丁寧な接客が好評。</div>
+        <input name="staff" type="radio" value="木田"/>
+        <button class="select-btn" type="button">このスタッフを選ぶ</button>
+      </label>
+      <label class="staff-card" onclick="selectCard(this)">
+        <div class="staff-name">癒し花子</div>
+        <div class="staff-info">セットコースに定評あり。しっかり圧の施術。</div>
+        <input name="staff" type="radio" value="米倉"/>
+        <button class="select-btn" type="button">このスタッフを選ぶ</button>
+      </label>
+      <label class="staff-card" onclick="selectCard(this)">
+        <div class="staff-name">足つぼ仙人</div>
+        <div class="staff-info">フットケア専門。むくみや疲れを集中ケア。</div>
+        <input name="staff" type="radio" value="横田"/>
+        <button class="select-btn" type="button">このスタッフを選ぶ</button>
+      </label>
+      <label class="staff-card" onclick="selectCard(this)">
+        <div class="staff-name">香るオイルさん</div>
+        <div class="staff-info">オイル・女性限定施術を担当。リラックス空間に定評。</div>
+        <input name="staff" type="radio" value="桜井"/>
+        <button class="select-btn" type="button">このスタッフを選ぶ</button>
+      </label>
+      <label class="staff-card" onclick="selectCard(this)">
+        <div class="staff-name">指名しない</div>
+        <div class="staff-info">空いているスタッフにおまかせでご案内します。</div>
+        <input name="staff" type="radio" value="おまかせ"/>
+        <button class="select-btn" type="button">おまかせ</button>
+      </label>
+    </div>
+  </form>
+</div>
+
+<script>
+  function selectCard(card) {
+    const allCards = document.querySelectorAll('.staff-card');
+    allCards.forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    const name = card.querySelector('.staff-name')?.textContent || "";
+    localStorage.setItem("selectedStaff", name);
+    window.location.href = "step2_course.html";
+  }
+</script>
+</body>
+</html>

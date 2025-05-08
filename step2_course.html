@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>コース選択（ホットペッパー風）</title>
+  <link href="common.css" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: linear-gradient(to bottom, #fdfaf6, #f5eee5);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 32px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    h1 {
+      font-size: 1.4em;
+      margin-bottom: 1em;
+      text-align: center;
+    }
+    h2 {
+      font-size: 1.2em;
+      border-left: 5px solid #d4a373;
+      padding-left: 0.5em;
+      margin-top: 2em;
+      margin-bottom: 0.5em;
+    }
+    .course-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1em;
+      margin-bottom: 1em;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4em;
+    }
+    .course-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .course-name {
+      font-weight: bold;
+    }
+    .price {
+      font-weight: bold;
+      color: #8b4513;
+    }
+    .description {
+      font-size: 0.9em;
+      color: #555;
+    }
+    .select-btn {
+      align-self: flex-end;
+      margin-top: 0.5em;
+      padding: 0.4em 1em;
+      background-color: #d4a373;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .select-btn:hover {
+      background-color: #c18b5f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ご希望のコースをお選びください</h1>
+
+    <h2>もみほぐし（ショート・通常）</h2>
+    <div class="course-card">
+      <div class="course-row">
+        <span class="course-name">60分コース</span>
+        <span class="price">¥3,800</span>
+      </div>
+      <div class="description">全身をしっかりもみほぐします。肩こり・腰痛の方におすすめ。</div>
+      <button class="select-btn">60分コース</button>
+    </div>
+
+    <div class="course-card">
+      <div class="course-row">
+        <span class="course-name">80分コース</span>
+        <span class="price">¥5,000</span>
+      </div>
+      <div class="description">ゆったりとした施術時間で、全身疲労にも対応。</div>
+      <button class="select-btn">80分コース</button>
+    </div>
+
+    <h2>フットケア</h2>
+    <div class="course-card">
+      <div class="course-row">
+        <span class="course-name">30分コース</span>
+        <span class="price">¥2,500</span>
+      </div>
+      <div class="description">足のむくみ・だるさを感じる方に。足裏を集中的にケア。</div>
+      <button class="select-btn">30分コース</button>
+    </div>
+
+    <h2>セットコース</h2>
+    <div class="course-card">
+      <div class="course-row">
+        <span class="course-name">90分コース（もみ60＋フット30）</span>
+        <span class="price">¥5,800</span>
+      </div>
+      <div class="description">全身と足裏の両方をしっかりケアしたい方へ。</div>
+      <button class="select-btn">90分コース（もみ60＋フット30）</button>
+    </div>
+
+    <h2>オプション</h2>
+    <div class="course-card">
+      <div class="course-row">
+        <span class="course-name">ヘッドマッサージ 20分</span>
+        <span class="price">¥1,000</span>
+      </div>
+      <div class="description">目の疲れや頭の重だるさに。全コースに追加できます。</div>
+      <button class="select-btn">ヘッドマッサージ 20分</button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll(".select-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const course = btn.textContent.trim();
+        localStorage.setItem("selectedCourse", course);
+        window.location.href = "step3_time.html";
+      });
+    });
+  </script>
+</body>
+</html>
