@@ -3,24 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>お客様情報入力</title>
+  <title>ご予約者情報入力</title>
   <style>
     body {
-      overflow-x: hidden;
       font-family: 'Noto Sans JP', sans-serif;
       background: linear-gradient(to bottom, #fdfaf6, #f5eee5);
-      color: #333;
       margin: 0;
       padding: 0;
+      color: #333;
     }
     .container {
-      width: 100%;
-      max-width: 380px;
-      margin: 32px auto;
+      max-width: 400px;
+      margin: 40px auto;
       background: #fff;
       padding: 24px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     h2 {
       text-align: center;
@@ -52,9 +50,6 @@
     button:hover {
       background: #b8956a;
     }
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
   </style>
 </head>
 <body>
@@ -71,11 +66,12 @@
         <input type="email" name="email" required />
       </label>
       <label>ご要望・メモ（任意）
-        <textarea name="memo" rows="4"></textarea>
+        <textarea name="memo" rows="3"></textarea>
       </label>
       <button type="submit">送信して予約完了</button>
     </form>
   </div>
+
   <script>
     const form = document.getElementById("reservationForm");
     form.addEventListener("submit", async (e) => {
@@ -90,12 +86,14 @@
         date: localStorage.getItem("selectedDate") || "",
         time: localStorage.getItem("selectedTime") || ""
       };
+
       try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbyfhtqag79oZIb0DVCzmf22nLGxAgGXbtbEUAr_H9pU3DdOhgPxXST1VEoRvqiQkN8emg/exec", {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwl3oxDv3whHeG9rFjjX5BrkAO4vhEtTJq6pO_0J7hcYmIJkYzfHh7ySoqiUhecToGj/exec", {
           method: "POST",
-          body: JSON.stringify(data),
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
         });
+
         if (res.ok) {
           const result = await res.json();
           const reservationId = result.id;
